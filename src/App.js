@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-
 function CalcDisplay({display}) {
   return (
     <div className="calcDisplay">
@@ -30,7 +29,7 @@ function App() {
     const value = e.target.innerHTML;
  
     if (oper === 0) {
-      if (num1 === 0) {
+      if (parseInt(num1) === 0) {
         setNum1(value)
         setDisp(value);
       } else {
@@ -38,8 +37,13 @@ function App() {
         setDisp(num1+value);
       }
     } else {
-      setNum2(num2+value)
-      setDisp(num2+value);      
+      if (num2 === 0) {
+        setNum2(value)
+        setDisp(value);      
+    } else {
+        setNum2(num2+value)
+        setDisp(num2+value);
+      }
     }
     console.log(num1 +'|'+ num2 +'|'+ oper +'|'+ res +'|'+ disp);
   };
@@ -62,6 +66,12 @@ function App() {
     } else if (oper === "-") {
       setRes(parseInt(num1) - parseInt(num2));
       setDisp(parseInt(num1) - parseInt(num2));      
+    } else if (oper === "*") {
+      setRes(parseInt(num1) * parseInt(num2));
+      setDisp(parseInt(num1) * parseInt(num2)); 
+    } else if (oper === "/") {
+      setRes(parseInt(num1) / parseInt(num2));
+      setDisp(parseInt(num1) / parseInt(num2)); 
     } else {
       setDisp("ERROR");
       setNum1(0);
@@ -72,7 +82,6 @@ function App() {
     }
   };
 
-  /*This is now working!*/
   const clearClickHandler = () => {
     setNum1(0);
     setNum2(0);
@@ -91,18 +100,18 @@ function App() {
         <CalcButton value="8" onClick={numberClickHandler}/>
         <CalcButton value="9" onClick={numberClickHandler}/>
         <CalcButton value="+" onClick={operClickHandler}/>
-        <CalcButton value="6"/>
-        <CalcButton value="5"/>
-        <CalcButton value="4"/>
+        <CalcButton value="6" onClick={numberClickHandler}/>
+        <CalcButton value="5" onClick={numberClickHandler}/>
+        <CalcButton value="4" onClick={numberClickHandler}/>
         <CalcButton value="-" onClick={operClickHandler}/>
-        <CalcButton value="3"/>
-        <CalcButton value="2"/>
-        <CalcButton value="1"/>
-        <CalcButton value="*"/>
+        <CalcButton value="3" onClick={numberClickHandler}/>
+        <CalcButton value="2" onClick={numberClickHandler}/>
+        <CalcButton value="1" onClick={numberClickHandler}/>
+        <CalcButton value="*" onClick={operClickHandler}/>
         <CalcButton value="C" onClick={clearClickHandler}/>
         <CalcButton value="0" onClick={numberClickHandler}/>
         <CalcButton value="=" onClick={equalClickHandler}/>
-        <CalcButton value="/"/>
+        <CalcButton value="/" onClick={operClickHandler}/>
       </div>  
     </div>  
   );
